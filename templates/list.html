@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact list</title>
+</head>
+
+<body>
+    <h1>Contact List</h1>
+    <table id="contactsTable" border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User ID</th>
+                <th>Title</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be added here dynamically -->
+        </tbody>
+    </table>
+
+    <script>
+        async function fetchContacts() {
+            const response = await fetch("http://127.0.0.1:8000/contacts/");
+            const contacts = await response.json();
+
+            const tableBody = document.getElementById("contactsTable").getElementsByTagName("tbody")[0];
+
+            contacts.forEach(contact => {
+                const row = tableBody.insertRow();
+
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                const cell3 = row.insertCell(2);
+                const cell4 = row.insertCell(3);
+
+                cell1.textContent = contact.id;
+                cell2.textContent = contact.user;
+                cell3.textContent = contact.title;
+                cell4.textContent = contact.message;
+            });
+        }
+
+        fetchContacts();
+    </script>
+</body>
+
+</html>

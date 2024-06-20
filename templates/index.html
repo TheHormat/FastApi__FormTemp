@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="shortcut icon" href="/static/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Contact Form</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Contact Form</h1>
+        <form id="contactForm" class="w-50">
+            <div class="form-group">
+                <label for="user">User ID</label>
+                <input type="number" class="form-control" id="user" placeholder="1">
+            </div>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" placeholder="Title...">
+            </div>
+            <div class="form-group">
+                <label for="message">Example textarea</label>
+                <textarea class="form-control" id="message" rows="5"></textarea>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const user = document.getElementById("user").value;
+            const title = document.getElementById("title").value;
+            const message = document.getElementById("message").value;
+
+            const response = await fetch("http://127.0.0.1:8000/contacts/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    user: parseInt(user),
+                    title: title,
+                    message: message
+                }),
+            });
+
+            if (response.ok) {
+                alert("Contact added successfully!");
+            } else {
+                alert("Failed to add contact.");
+            }
+        });
+    </script>
+</body>
+
+</html>
