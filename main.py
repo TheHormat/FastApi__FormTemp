@@ -11,7 +11,7 @@ from typing import List
 
 app = FastAPI()
 
-# CORS ayarları
+# CORS conf
 origins = [
     "http://localhost",
     "http://localhost:8000",
